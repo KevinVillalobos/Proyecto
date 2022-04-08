@@ -20,7 +20,7 @@ services:
             MYSQL_ROOT_PASSWORD: admin123
             MYSQL_DATABASE: noxus gym
             MYSQL_USER: kevin
-            MYSQL_PASSWORD: root123
+            MYSQL_PASSWORD: root
         volumes:
           - ./pagina/database:/docker-entrypoint-initdb.d
     phpmyadmin:
@@ -29,3 +29,7 @@ services:
             - '8080:80'
         restart: always
         environment:
+            PMA_HOST: db
+        depends_on:
+            - db
+
