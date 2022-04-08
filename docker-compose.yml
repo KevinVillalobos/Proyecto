@@ -7,7 +7,7 @@ services:
             context: ./pagina
             dockerfile: Dockerfile
         depends_on:
-            - base_datos
+            - db
         volumes:
             - ./pagina/php:/var/www/html/
         ports:
