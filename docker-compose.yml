@@ -1,33 +1,31 @@
 version: '3.8'
 services:
     php-apache-environment:
-        container_name: Page-docker
+        container_name: apache_page
+        restart: always
         build:
-            context: ./php
+            context: ./pagina
             dockerfile: Dockerfile
         depends_on:
-            - db
+            - base_datos
         volumes:
-            - ./php/page:/var/www/html/
+            - ./pagina/php:/var/www/html/
         ports:
-            - 8000:80
+            - 8001:80
     db:
-        container_name: database
+        container_name: db
         image: mysql
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: kevin
+            MYSQL_ROOT_PASSWORD: admin123
             MYSQL_DATABASE: noxus gym
             MYSQL_USER: kevin
-            MYSQL_PASSWORD: kevin123
-        ports:
-          - 3306:3306
+            MYSQL_PASSWORD: root123
+        volumes:
+          - ./pagina/database:/docker-entrypoint-initdb.d
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
             - '8080:80'
         restart: always
         environment:
-            PMA_HOST: db
-        depends_on:
-            - db
